@@ -34,8 +34,12 @@ struct WAVHeader
 void setup()
 {
     Serial.begin(115200);
-    while (!Serial)
-        ;
+    // Wait for serial with timeout
+    unsigned long startTime = millis();
+    while (!Serial && (millis() - startTime < 5000))
+    {
+        delay(100);
+    }
     Serial.println("WAV Recorder Started");
 
     // Initialize analog reading
